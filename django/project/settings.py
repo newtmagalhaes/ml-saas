@@ -147,6 +147,6 @@ STATICFILES_DIRS = [
 # Django Bootstrap 5
 # https://django-bootstrap5.readthedocs.io/en/latest/settings.html
 BOOTSTRAP5 = {
-    'color_mode': 'dark',
+    'color_mode': 'auto',
     'javascript_in_head': True,
 }

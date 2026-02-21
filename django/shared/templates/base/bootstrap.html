@@ -18,9 +18,13 @@
 <div class="container-md">
     {% block header %}{% endblock header %}
     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
-
+    
     {% block content %}(no content){% endblock content %}
-
+    
     {% block footer %}{% endblock footer %}
 </div>
 {% endblock bootstrap5_content %}
+
+{% block bootstrap5_extra_script %}
+<script defer type="text/javascript" src="{% static "common/color-selector.js" %}" crossorigin="anonymous"></script>
+{% endblock bootstrap5_extra_script %}
