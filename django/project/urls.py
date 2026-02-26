@@ -25,6 +25,7 @@ urlpatterns = [
     path('manager/', include('apps.manager.urls')),
     # path("accounts/", include("django.contrib.auth.urls")),
     path('', login_not_required(TemplateView.as_view(template_name='base/page.html')), name='home_view'),
+    path('predict/', include('apps.core.urls'))
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,28 @@
+{% extends "base/page.html" %}
+{% load i18n static django_bootstrap5 %}
+
+{% block content %}
+O resultado é:
+<ul class="col">
+    <li>
+        <div class="row">
+            <div class="col">Classificador</div>
+            <div class="col">Tipo Classificador</div>
+            <div class="col">Tem Diabetes?</div>
+            <div class="col">Probabilidade do não</div>
+            <div class="col">Probabilidade do sim</div>
+        </div>
+    </li>
+    {% for row in resultado %}
+    <li>
+        <div class="row">
+            <div class="col">{{ row.0.nome }}</div>
+            <div class="col">{{ row.0.tipo|yesno:"Regressão,Classificação" }}</div>
+            <div class="col">{{ row.1|yesno:"Sim,Não,Não sabe" }}</div>
+            <div class="col text-danger">{{ row.2.0|stringformat:".02f" }}%</div>
+            <div class="col text-success">{{ row.2.1|stringformat:".02f" }}%</div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
