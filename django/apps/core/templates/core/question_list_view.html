@@ -1,0 +1,10 @@
+{% extends "base/page.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="col">
+  {% for q in questions %}
+  <a href="{% url "question_detail" q.id %}" class="link">{{ q.title }}</a>
+  {% endfor %}
+</div>
+{% endblock content %}

@@ -7,6 +7,7 @@ from django.views.generic import TemplateView
 
 # register Your views here
 from .diabetes_form_view import DiabetesFormView, _get_clf2
+from .question_list_view import QuestionListView
 
 
 # Create your views here.
@@ -17,7 +18,7 @@ class PredictView(TemplateView):
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
 
-        clfs = _get_clf2(self.request.user)
+        clfs = []
         fields: dict[str, int | float] = {
             'Pregnancies': 6,
             'Glucose': 148,

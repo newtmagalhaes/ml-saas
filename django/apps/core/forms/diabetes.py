@@ -12,6 +12,8 @@ fields: dict[str, int | float] = {
 
     'Age': 50,
 }
+
+
 class DiabetesForm(forms.Form):
     num_pregnancies = forms.IntegerField(
         label='quantidade de gravidez',
