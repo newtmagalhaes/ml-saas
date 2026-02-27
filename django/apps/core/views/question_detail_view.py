@@ -8,14 +8,15 @@ from django.views.generic import FormView
 
 from ..models import ModelML
 from ..questions import QUESTIONS_MAP
-from ..constants import ModelType
+
 
 def get_clfs():
     return ModelML.objects.filter(is_public=1)
 
+
 def format_data(cleaned_data: dict):
     data = [value for value in cleaned_data.values()]
-    data.extend([0, 0.5, 0.6, 1])
+    # data.extend([0, 0.5, 0.6, 1])
     return data
 
 
@@ -56,9 +57,10 @@ class QuestionDetailView(FormView):
             (c, *c.predict(data), *(c.predict_proba(data) * 100), estimator_html_repr(c.model))
             for c in clfs
         ]
+        from pprint import pprint
         for c in clfs:
-            print(estimator_html_repr(c.model))
-            print(c.nome)
+            pprint(estimator_html_repr(c.model))
+            # print(c.nome)
         return render(
             request=self.request,
             template_name='core/question/answer.html',
