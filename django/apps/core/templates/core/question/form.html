@@ -7,7 +7,7 @@
   {% include "core/question/detail.html" with question=question %}
 
   <div class="d-flex justify-content-center">
-    <form class="card bg-secondary-subtle p-3 col-6" method="post" id="diabetes-form">
+    <form class="card bg-subtle p-3 col-6" method="post" id="diabetes-form">
       {% csrf_token %}
       
       {% bootstrap_form form %}

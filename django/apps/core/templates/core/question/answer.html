@@ -16,7 +16,23 @@ O resultado é:
     {% for row in resultado %}
     <li>
         <div class="row">
-            <div class="col">{{ row.0.nome }}</div>
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toogle" id="dropdown-theme-btn" data-bs-toggle="dropdown" type="button" aria-expanded="false">
+                        {{ row.0.nome }}
+                        {% comment %} <i id="dropdown-theme-btn-icon"></i>
+                        <span class="d-lg-none ms-2" id="bd-theme-text">
+                        </span> {% endcomment %}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="dropdown-item">
+                                {{ row.3|safe }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div class="col">{{ row.0.tipo|yesno:"Regressão,Classificação" }}</div>
             <div class="col">{{ row.1|yesno:"Sim,Não,Não sabe" }}</div>
             <div class="col text-danger">{{ row.2.0|stringformat:".02f" }}%</div>

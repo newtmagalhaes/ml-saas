@@ -5,6 +5,7 @@
 <div class="list-group">
   {% for q in questions %}
   <a class="list-group-item list-group-item-action text-primary" href="{% url "core:question_detail_view" q.id %}">
+    <span class="badge text-bg-primary">{{ q.tipo_modelo.label }}</span>
     {{ q.title }}
   </a>
   {% endfor %}

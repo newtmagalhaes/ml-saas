@@ -41,6 +41,7 @@ class QuestionDetailView(FormView):
         return context
 
     def form_valid(self, form: Form):
+        from sklearn.utils import estimator_html_repr
         # formatar dados para input do modelo
         data = format_data(form.cleaned_data)
 
@@ -52,9 +53,12 @@ class QuestionDetailView(FormView):
         # fazer classificação
         context = self.get_context_data()
         context["resultado"] = [
-            (c, *c.predict(data), *(c.predict_proba(data) * 100))
+            (c, *c.predict(data), *(c.predict_proba(data) * 100), estimator_html_repr(c.model))
             for c in clfs
         ]
+        for c in clfs:
+            print(estimator_html_repr(c.model))
+            print(c.nome)
         return render(
             request=self.request,
             template_name='core/question/answer.html',
