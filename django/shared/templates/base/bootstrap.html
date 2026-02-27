@@ -14,7 +14,7 @@
 <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/x-icon">
 
 <script defer type="text/javascript" src="{% static "common/color_selector.js" %}" crossorigin="anonymous"></script>
-<script defer type="text/javascript" src="{% static "common/disable_sumbit_button.js" %}" crossorigin="anonymous"></script>
+<script defer type="text/javascript" src="{% static "common/disable_submit_buttons.js" %}" crossorigin="anonymous"></script>
 {% endblock bootstrap5_extra_head %}
 
 {% block bootstrap5_content %}
@@ -22,7 +22,7 @@
     {% block header %}{% endblock header %}
     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 
-    {% block content %}(no content){% endblock content %}
+    {% block main %}(no main){% endblock main %}
 
     {% block footer %}{% endblock footer %}
 </div>

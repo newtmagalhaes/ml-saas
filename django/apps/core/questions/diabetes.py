@@ -1,7 +1,12 @@
+from ..constants import ModelType
+from ..forms import DiabetesForm
 from .question_base import Question
 
 DIABETES = Question(
-    1,
+    form_class=DiabetesForm,
+    tipo_modelo=ModelType.CLASSIFICACAO,
+    id=1,
+    title='Classificação de diabetes baseado no Pima Indians Diabetes Database',
     context=(
         'O diabetes é uma doença crônica de grande impacto na saúde pública, cujo diagnóstico precoce é essencial para prevenir complicações. '
         'Nesse contexto, técnicas de Ciência de Dados e Aprendizado de Máquina podem auxiliar na análise de dados clínicos e no apoio à tomada de decisão. '
