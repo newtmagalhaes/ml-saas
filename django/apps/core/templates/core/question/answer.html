@@ -2,43 +2,34 @@
 {% load i18n static django_bootstrap5 %}
 
 {% block content %}
-O resultado é:
-<ul class="col">
-    <li>
-        <div class="row">
-            <div class="col">Classificador</div>
-            <div class="col">Tipo Classificador</div>
-            <div class="col">Tem Diabetes?</div>
-            <div class="col">Probabilidade do não</div>
-            <div class="col">Probabilidade do sim</div>
-        </div>
-    </li>
-    {% for row in resultado %}
-    <li>
-        <div class="row">
-            <div class="col">
-                <div class="dropdown">
-                    <button class="btn btn-link dropdown-toogle" id="dropdown-theme-btn" data-bs-toggle="dropdown" type="button" aria-expanded="false">
-                        {{ row.0.nome }}
-                        {% comment %} <i id="dropdown-theme-btn-icon"></i>
-                        <span class="d-lg-none ms-2" id="bd-theme-text">
-                        </span> {% endcomment %}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="dropdown-item">
-                                {{ row.3|safe }}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+<div class="col-8">
+  {% include "core/question/detail.html" with question=question %}
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Classificador</th>
+        <th scope="col">Tem Diabetes?</th>
+        <th scope="col">Probabilidades</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in resultado %}
+      <tr>
+        <td>{{ item.0.nome }}</td>
+        <td>{{ item.1|yesno:"Sim,Não,Não sabe" }}</td>
+        <td>
+          <div class="progress-stacked">
+            <div class="progress" role="progressbar" aria-label="Probabilidade do sim" aria-valuenow="{{ item.2.0|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.0|stringformat:".02f" }}%">
+              <div class="progress-bar bg-success">{{ item.2.0|stringformat:".02f" }}%</div>
             </div>
-            <div class="col">{{ row.0.tipo|yesno:"Regressão,Classificação" }}</div>
-            <div class="col">{{ row.1|yesno:"Sim,Não,Não sabe" }}</div>
-            <div class="col text-danger">{{ row.2.0|stringformat:".02f" }}%</div>
-            <div class="col text-success">{{ row.2.1|stringformat:".02f" }}%</div>
-        </div>
-    </li>
+            <div class="progress" role="progressbar" aria-label="Probabilidade do não" aria-valuenow="{{ item.2.1|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.1|stringformat:".02f" }}%">
+              <div class="progress-bar bg-danger">{{ item.2.1|stringformat:".02f" }}%</div>
+            </div>
+          </div>
+        </td>
+      </tr>
     {% endfor %}
-</ul>
+    </tbody>
+  </table>
+</div>
 {% endblock content %}

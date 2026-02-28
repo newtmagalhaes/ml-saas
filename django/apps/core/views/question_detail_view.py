@@ -10,16 +10,6 @@ from ..models import ModelML
 from ..questions import QUESTIONS_MAP
 
 
-def get_clfs():
-    return ModelML.objects.filter(is_public=1)
-
-
-def format_data(cleaned_data: dict):
-    data = [value for value in cleaned_data.values()]
-    # data.extend([0, 0.5, 0.6, 1])
-    return data
-
-
 @method_decorator(login_not_required, name="dispatch")
 class QuestionDetailView(FormView):
     template_name = 'core/question/form.html'
@@ -41,26 +31,28 @@ class QuestionDetailView(FormView):
 
         return context
 
+    def _get_queryset(self):
+        return ModelML.objects.filter(is_public=True)
+
+    def _format_data(self, cleaned_data: dict):
+        return [value for value in cleaned_data.values()]
+
     def form_valid(self, form: Form):
-        from sklearn.utils import estimator_html_repr
         # formatar dados para input do modelo
-        data = format_data(form.cleaned_data)
+        data = self._format_data(form.cleaned_data)
 
         # Carregar modelos
-        questao = self.get_question()
-        assert questao is not None
-        clfs = get_clfs().filter(tipo=questao.tipo_modelo).all()
+        assert (questao := self.get_question()) is not None, f'Não há questão com este id: "{self.kwargs.get("id")}"'
+
+        modelos = self._get_queryset().filter(tipo=questao.tipo_modelo).all()
 
         # fazer classificação
         context = self.get_context_data()
+        context['question'] = questao
         context["resultado"] = [
-            (c, *c.predict(data), *(c.predict_proba(data) * 100), estimator_html_repr(c.model))
-            for c in clfs
+            (m, *m.predict(data), *(m.predict_proba(data) * 100))
+            for m in modelos
         ]
-        from pprint import pprint
-        for c in clfs:
-            pprint(estimator_html_repr(c.model))
-            # print(c.nome)
         return render(
             request=self.request,
             template_name='core/question/answer.html',
