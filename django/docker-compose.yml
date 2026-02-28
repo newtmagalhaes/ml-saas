@@ -1,0 +1,35 @@
+services:
+  ml_app:
+    container_name: ml_app
+    image: ml_app:latest
+    build:
+      context: .
+      tags:
+        - ml_app:1.0.0
+    restart: unless-stopped
+    env_file: .env
+    # ports:
+    #   - 8000:80
+    volumes:
+      - ./.static:/app/.static
+      - ./.media:/app/.media
+      - ./db.sqlite3:/app/db.sqlite3
+
+  nginx:
+    image: nginx:stable-alpine3.19-slim
+    # container_name: nginx
+    volumes:
+    - ./nginx.conf:/etc/nginx/templates/default.conf.template
+    - ./.static:/etc/nginx/django:ro
+    ports:
+    - "80:80"
+    environment:
+    - APP_HOST_PORT=ml_app:8000
+    - STATIC_FOLDER=/etc/nginx/django
+    - STATIC_URL=/static
+    - NGINX_READ_TIMEOUT=30s
+    - TZ=America/Sao_Paulo
+    depends_on:
+      ml_app:
+        condition: service_started
+    restart: unless-stopped
