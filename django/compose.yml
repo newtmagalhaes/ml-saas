@@ -6,18 +6,21 @@ services:
       context: .
       tags:
         - ml_app:1.0.0
-    restart: unless-stopped
-    env_file: .env
+    environment:
+    - DJANGO_SETTINGS_MODULE=project.settings_prod
+    - TZ=America/Sao_Paulo
+    - SECRET_KEY=demo
     # ports:
-    #   - 8000:80
+    #   - 8000:8000
+    restart: unless-stopped
     volumes:
-      - ./.static:/app/.static
-      - ./.media:/app/.media
-      - ./db.sqlite3:/app/db.sqlite3
+    - ./.static:/app/.static
+    - ./.media:/app/.media
+    - ./db.sqlite3:/app/db.sqlite3
 
   nginx:
+    container_name: nginx
     image: nginx:stable-alpine3.19-slim
-    # container_name: nginx
     volumes:
     - ./nginx.conf:/etc/nginx/templates/default.conf.template
     - ./.static:/etc/nginx/django:ro
@@ -29,7 +32,7 @@ services:
     - STATIC_URL=/static
     - NGINX_READ_TIMEOUT=30s
     - TZ=America/Sao_Paulo
+    restart: unless-stopped
     depends_on:
       ml_app:
         condition: service_started
-    restart: unless-stopped

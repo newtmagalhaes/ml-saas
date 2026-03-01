@@ -3,10 +3,9 @@ from django.conf import settings
 
 def project_title(request):
     return {
-        # TODO: gerar título dinamicamente pela view
-        'PROJECT_TITLE': 'MedHealth',
-        'PROJECT_NAME': 'MedHealth',
-        'DEFAULT_PROJECT_TITLE': 'MedHealth'
+        'PROJECT_TITLE': 'MedPredict',
+        'PROJECT_NAME': 'MedPredict',
+        'DEFAULT_PROJECT_TITLE': 'MedPredict'
     }
 
 

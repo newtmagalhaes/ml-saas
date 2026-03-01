@@ -17,7 +17,7 @@ urlpatterns = [
             extra_context={
                 'question': DIABETES,
                 'resultado': list(map(
-                    lambda r: ({'nome': f'classificador-{r}'}, int(r>50), [r, 100-r]),
+                    lambda r: ({'nome': f'classificador-{r}'}, int(r>50), [100-r, r]),
                     np.random.random_integers(0, 101, 20)
                 )),
             },

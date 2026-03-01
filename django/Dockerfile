@@ -7,11 +7,13 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+COPY --chmod=+x run.sh .
+
 ENV DJANGO_SETTINGS_MODULE=project.settings_prod
 ENV PYTHONUNBUFFERED=1
 ENV APP_PORT=8000
 
-ENTRYPOINT ["gunicorn", "project.wsgi"]
+ENTRYPOINT ["sh", "run.sh"]
 
 EXPOSE ${APP_PORT}
 

@@ -19,11 +19,11 @@
         <td>{{ item.1|yesno:"Sim,Não,Não sabe" }}</td>
         <td>
           <div class="progress-stacked">
-            <div class="progress" role="progressbar" aria-label="Probabilidade do sim" aria-valuenow="{{ item.2.0|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.0|stringformat:".02f" }}%">
-              <div class="progress-bar bg-success">{{ item.2.0|stringformat:".02f" }}%</div>
+            <div class="progress" role="progressbar" aria-label="Probabilidade do sim" aria-valuenow="{{ item.2.1|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.1|stringformat:".02f" }}%">
+              <div class="progress-bar bg-success">{{ item.2.1|stringformat:".02f" }}%</div>
             </div>
-            <div class="progress" role="progressbar" aria-label="Probabilidade do não" aria-valuenow="{{ item.2.1|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.1|stringformat:".02f" }}%">
-              <div class="progress-bar bg-danger">{{ item.2.1|stringformat:".02f" }}%</div>
+            <div class="progress" role="progressbar" aria-label="Probabilidade do não" aria-valuenow="{{ item.2.0|stringformat:".02f" }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.2.0|stringformat:".02f" }}%">
+              <div class="progress-bar bg-danger">{{ item.2.0|stringformat:".02f" }}%</div>
             </div>
           </div>
         </td>

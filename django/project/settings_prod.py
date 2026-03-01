@@ -1,7 +1,7 @@
-from os import environ
+from os import getenv
 
 from .settings import *
 
 DEBUG = False
-ALLOWED_HOSTS = ['*']
-SECRET_KEY = environ['SECRET_KEY']
+ALLOWED_HOSTS = getenv('ALLOWED_HOSTS', '*').split()
+SECRET_KEY = getenv('SECRET_KEY', SECRET_KEY)
