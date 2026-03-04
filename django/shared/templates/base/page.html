@@ -4,6 +4,10 @@
 {% include "base/components/navbar.html" %}
 {% endblock header %}
 
-{% block content %}
-<main class="container-md-6 d-flex justify-content-center">vazio</main>
-{% endblock content %}
+{% block main %}
+<main class="d-flex justify-content-center">
+  {% block content %}
+  vazio
+  {% endblock content %}
+</main>
+{% endblock main %}
